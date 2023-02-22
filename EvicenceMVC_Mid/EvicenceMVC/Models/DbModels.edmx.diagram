@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="67b979edbfb14c2f9af4fff7d32004a0" Name="Diagram1">
+        <EntityTypeShape EntityType="DCMDbModel.EntryTest" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCMDbModel.TestEntry" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCMDbModel.Test" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCMDbModel.TestType" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="DCMDbModel.FK_dbo_EntryTests_dbo_TestEntries_TestEntryId" ManuallyRouted="false" />
+        <AssociationConnector Association="DCMDbModel.FK_dbo_EntryTests_dbo_Tests_TestId" ManuallyRouted="false" />
+        <AssociationConnector Association="DCMDbModel.FK_dbo_Tests_dbo_TestTypes_TestTypeId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

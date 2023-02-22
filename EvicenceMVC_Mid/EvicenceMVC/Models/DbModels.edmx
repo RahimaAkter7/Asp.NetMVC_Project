@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DCMDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EntryTests">
+          <Key>
+            <PropertyRef Name="TestEntryId" />
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="EntryTestsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestEntryId" Type="int" Nullable="false" />
+          <Property Name="TestId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TestEntries">
+          <Key>
+            <PropertyRef Name="TestEntryId" />
+          </Key>
+          <Property Name="TestEntryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="TestDate" Type="date" Nullable="false" />
+          <Property Name="DueDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tests">
+          <Key>
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="TestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fee" Type="money" Nullable="false" />
+          <Property Name="Available" Type="bit" Nullable="false" />
+          <Property Name="TestTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TestTypes">
+          <Key>
+            <PropertyRef Name="TestTypeId" />
+          </Key>
+          <Property Name="TestTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_EntryTests_dbo_TestEntries_TestEntryId">
+          <End Role="TestEntries" Type="Self.TestEntries" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EntryTests" Type="Self.EntryTests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestEntries">
+              <PropertyRef Name="TestEntryId" />
+            </Principal>
+            <Dependent Role="EntryTests">
+              <PropertyRef Name="TestEntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_EntryTests_dbo_Tests_TestId">
+          <End Role="Tests" Type="Self.Tests" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EntryTests" Type="Self.EntryTests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="EntryTests">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Tests_dbo_TestTypes_TestTypeId">
+          <End Role="TestTypes" Type="Self.TestTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestTypes">
+              <PropertyRef Name="TestTypeId" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="TestTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DCMDbModelStoreContainer">
+          <EntitySet Name="EntryTests" EntityType="Self.EntryTests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestEntries" EntityType="Self.TestEntries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestTypes" EntityType="Self.TestTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_EntryTests_dbo_TestEntries_TestEntryId" Association="Self.FK_dbo_EntryTests_dbo_TestEntries_TestEntryId">
+            <End Role="TestEntries" EntitySet="TestEntries" />
+            <End Role="EntryTests" EntitySet="EntryTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_EntryTests_dbo_Tests_TestId" Association="Self.FK_dbo_EntryTests_dbo_Tests_TestId">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="EntryTests" EntitySet="EntryTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Tests_dbo_TestTypes_TestTypeId" Association="Self.FK_dbo_Tests_dbo_TestTypes_TestTypeId">
+            <End Role="TestTypes" EntitySet="TestTypes" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DCMDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EntryTest">
+          <Key>
+            <PropertyRef Name="TestEntryId" />
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="EntryTestsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestEntryId" Type="Int32" Nullable="false" />
+          <Property Name="TestId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TestEntry" Relationship="Self.FK_dbo_EntryTests_dbo_TestEntries_TestEntryId" FromRole="EntryTests" ToRole="TestEntries" />
+          <NavigationProperty Name="Test" Relationship="Self.FK_dbo_EntryTests_dbo_Tests_TestId" FromRole="EntryTests" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="TestEntry">
+          <Key>
+            <PropertyRef Name="TestEntryId" />
+          </Key>
+          <Property Name="TestEntryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Picture" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TestDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="EntryTests" Relationship="Self.FK_dbo_EntryTests_dbo_TestEntries_TestEntryId" FromRole="TestEntries" ToRole="EntryTests" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fee" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Available" Type="Boolean" Nullable="false" />
+          <Property Name="TestTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EntryTests" Relationship="Self.FK_dbo_EntryTests_dbo_Tests_TestId" FromRole="Tests" ToRole="EntryTests" />
+          <NavigationProperty Name="TestType" Relationship="Self.FK_dbo_Tests_dbo_TestTypes_TestTypeId" FromRole="Tests" ToRole="TestTypes" />
+        </EntityType>
+        <EntityType Name="TestType">
+          <Key>
+            <PropertyRef Name="TestTypeId" />
+          </Key>
+          <Property Name="TestTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tests" Relationship="Self.FK_dbo_Tests_dbo_TestTypes_TestTypeId" FromRole="TestTypes" ToRole="Tests" />
+        </EntityType>
+        <Association Name="FK_dbo_EntryTests_dbo_TestEntries_TestEntryId">
+          <End Role="TestEntries" Type="Self.TestEntry" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EntryTests" Type="Self.EntryTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestEntries">
+              <PropertyRef Name="TestEntryId" />
+            </Principal>
+            <Dependent Role="EntryTests">
+              <PropertyRef Name="TestEntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_EntryTests_dbo_Tests_TestId">
+          <End Role="Tests" Type="Self.Test" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EntryTests" Type="Self.EntryTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="EntryTests">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Tests_dbo_TestTypes_TestTypeId">
+          <End Role="TestTypes" Type="Self.TestType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tests" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestTypes">
+              <PropertyRef Name="TestTypeId" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="TestTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DCMDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EntryTests" EntityType="Self.EntryTest" />
+          <EntitySet Name="TestEntries" EntityType="Self.TestEntry" />
+          <EntitySet Name="Tests" EntityType="Self.Test" />
+          <EntitySet Name="TestTypes" EntityType="Self.TestType" />
+          <AssociationSet Name="FK_dbo_EntryTests_dbo_TestEntries_TestEntryId" Association="Self.FK_dbo_EntryTests_dbo_TestEntries_TestEntryId">
+            <End Role="TestEntries" EntitySet="TestEntries" />
+            <End Role="EntryTests" EntitySet="EntryTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_EntryTests_dbo_Tests_TestId" Association="Self.FK_dbo_EntryTests_dbo_Tests_TestId">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="EntryTests" EntitySet="EntryTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Tests_dbo_TestTypes_TestTypeId" Association="Self.FK_dbo_Tests_dbo_TestTypes_TestTypeId">
+            <End Role="TestTypes" EntitySet="TestTypes" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DCMDbModelStoreContainer" CdmEntityContainer="DCMDbContext">
+          <EntitySetMapping Name="EntryTests">
+            <EntityTypeMapping TypeName="DCMDbModel.EntryTest">
+              <MappingFragment StoreEntitySet="EntryTests">
+                <ScalarProperty Name="EntryTestsId" ColumnName="EntryTestsId" />
+                <ScalarProperty Name="TestEntryId" ColumnName="TestEntryId" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestEntries">
+            <EntityTypeMapping TypeName="DCMDbModel.TestEntry">
+              <MappingFragment StoreEntitySet="TestEntries">
+                <ScalarProperty Name="TestEntryId" ColumnName="TestEntryId" />
+                <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="TestDate" ColumnName="TestDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="DCMDbModel.Test">
+              <MappingFragment StoreEntitySet="Tests">
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="Fee" ColumnName="Fee" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="TestTypeId" ColumnName="TestTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestTypes">
+            <EntityTypeMapping TypeName="DCMDbModel.TestType">
+              <MappingFragment StoreEntitySet="TestTypes">
+                <ScalarProperty Name="TestTypeId" ColumnName="TestTypeId" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
